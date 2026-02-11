@@ -4,6 +4,15 @@ Extended configuration with ECS and Lambda services that utilize S3 and SQS reso
 Demonstrates resource sharing between configurations through external dependencies.
 Uses S3-based backend for state management (e.g., [ecs](https://github.com/truszkowski/terragrunt-examples/blob/b6758b7e390a619227fa2593b53aec7d032b374b/multi/config2/ecs/terragrunt.hcl#L24))
 
+Settings:
+- source code: `terragrunt-examples`
+- branch: `main`
+- project root: `multi/config2`
+- vendor: terragrunt `v0.89.0`, open tofu `1.10.8`, run-all=`true`
+- integration: AWS (for remote state backend - s3)
+- environment:
+  - `TG_QUEUE_EXCLUDE_EXTERNAL=true`
+
 ## dependency graph
 
 ```dot
@@ -56,4 +65,18 @@ In Spacelift, we check run show commands to detect changes and gather resources 
 [01KH5R5BSZZBAZGC5MKAVFZ584] Excluding module /mnt/workspace/source/multi/config1/s3 from run-all - exclude configuration block has been evaluated to true
 [01KH5R5BSZZBAZGC5MKAVFZ584] Excluding module /mnt/workspace/source/multi/config1/sqs from run-all - exclude configuration block has been evaluated to true
 ...
+```
+
+## resources view
+
+Resources are prefixed by module name:
+```
+lambda/pet random_pet
+lambda/sqs output
+lambda/s3 output
+lambda/lambda output
+ecs/pet random_pet
+ecs/sqs output
+ecs/s3 output
+ecs/ecs output
 ```

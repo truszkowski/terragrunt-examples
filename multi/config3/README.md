@@ -5,6 +5,16 @@ Application module depends on ECS from config2, which in turn depends on S3 and 
 Server environments (dev/prod) depend on the application module.
 Uses S3-based backend for state management.
 
+Settings:
+- source code: `terragrunt-examples`
+- branch: `main`
+- project root: `multi/config3`
+- vendor: terragrunt `v0.89.0`, open tofu `1.10.8`, run-all=`true`
+- integration: AWS (for remote state backend - s3)
+- environment:
+  - `TG_QUEUE_EXCLUDE_EXTERNAL=true`
+  - `TG_QUEUE_EXCLUDE_DIR=server-dev`
+
 ## dependency graph
 
 ```dot
@@ -45,3 +55,17 @@ We know from report what modules are skipped:
 [01KH4N7APAR7HQEGWGDGF1NDZP] Show report: name=server-prod result="succeeded" (bytes=2362)
 [01KH4N7APAR7HQEGWGDGF1NDZP] Show report: name=server-dev result="excluded" reason="--queue-exclude-dir" (bytes=0)
 ```
+
+## resources view
+
+Resources are prefixed by module name:
+```
+server-prod/pet random_pet
+server-prod/server output
+server-prod/application output
+application/pet random_pet
+application/ecs output
+application/application output
+```
+
+
