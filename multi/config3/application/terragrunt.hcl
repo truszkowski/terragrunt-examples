@@ -9,7 +9,7 @@ inputs = {
 dependency ecs {
 	config_path = "../../config2/ecs"
 	mock_outputs = {
-		s3 = "mock-ecs"
+		ecs = "mock-ecs"
 	}
 }
 
